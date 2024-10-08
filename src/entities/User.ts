@@ -3,7 +3,7 @@ import { Borrowing } from "./Borrowing";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()

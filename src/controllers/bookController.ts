@@ -1,4 +1,4 @@
-import { Request, Response, request } from "express";
+import { Request, Response } from "express";
 import { bookService } from "../services/bookService";
 
 const getAllBooks = async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ const createBook = async (req: Request, res: Response) => {
     res.json(book);
   } catch (error) {
     console.error("Error creating book:", error);
-    res.status(500).json({ error: "Failed to cerate book" });
+    res.status(500).json({ error: "Failed to create book" });
   }
 };
 

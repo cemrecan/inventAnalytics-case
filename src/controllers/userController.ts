@@ -1,4 +1,4 @@
-import { Request, Response, request } from "express";
+import { Request, Response } from "express";
 import { userService } from "../services/userService";
 
 const getAllUsers = async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ const createUser = async (req: Request, res: Response) => {
     res.json(user);
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ error: "Failed to cerate user" });
+    res.status(500).json({ error: "Failed to create user" });
   }
 };
 
