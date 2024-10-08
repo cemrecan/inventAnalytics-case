@@ -1,14 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Borrowing } from './Borrowing';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Borrowing } from "./Borrowing";
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn("increment")
+  id!: number;
 
-    @Column()
-    name!: string;
+  @Column()
+  name!: string;
 
-    @OneToMany(() => Borrowing, borrowing => borrowing.user)
-    borrowings?: Borrowing[];
+  @OneToMany(() => Borrowing, (borrowing) => borrowing.user)
+  borrowings?: Borrowing[];
 }

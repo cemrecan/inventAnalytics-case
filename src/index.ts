@@ -1,14 +1,16 @@
-import express from 'express';
-import userRouter from './routes/userRoutes';
-import { AppDataSource } from '../ormconfig';
+import express from "express";
+import userRouter from "./routes/userRoutes";
+import { AppDataSource } from "../ormconfig";
 
 const app = express();
-const port = 3000; 
+const port = 3000;
+
+app.use(express.json());
 
 // Initialize DataSource
 AppDataSource.initialize()
   .then(() => {
-    console.log('Data Source has been initialized!');
+    console.log("Data Source has been initialized!");
     // server setup and middleware (e.g., app.use(...))
 
     app.use("/", userRouter);
@@ -18,5 +20,5 @@ AppDataSource.initialize()
     });
   })
   .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
+    console.error("Error during Data Source initialization:", err);
   });
