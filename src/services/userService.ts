@@ -11,6 +11,7 @@ const getUserInfo = async (id: number) => {
   const userRepository = AppDataSource.getRepository(User);
   try {
     const user = await userRepository.findOneBy({ id });
+    // TODO: Details will be check after all implementation
     return user;
   } catch (err) {
     console.error("Error fetching user by ID:", err);
