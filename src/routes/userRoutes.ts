@@ -9,5 +9,6 @@ userRouter.get("/:id", userController.getUserInfo);
 userRouter.post("/", userController.createUser);
 
 userRouter.post("/:user_id/borrow/:book_id", borrowingController.borrowBook);
+userRouter.post("/:user_id/return/:book_id", borrowingController.returnBook);
 
 export default userRouter;
