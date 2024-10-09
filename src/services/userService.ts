@@ -10,8 +10,17 @@ const getAllUsers = async () => {
 const getUserInfo = async (id: number) => {
   const userRepository = AppDataSource.getRepository(User);
   try {
-    const user = await userRepository.findOneBy({ id });
-    // TODO: Details will be check after all implementation
+    const user = await userRepository.findOne({
+      relations: {
+        borrowings: {
+          book: true,
+        },
+      },
+      where: {
+        id: id,
+      },
+    });
+    //TODO: improve user response with only (name, books borrowed in the past with their user scores, and currently borrowed books information
     return user;
   } catch (err) {
     console.error("Error fetching user by ID:", err);
