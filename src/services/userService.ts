@@ -1,5 +1,6 @@
 import { AppDataSource } from "../../ormconfig";
 import { User } from "../entities/User";
+import { utils } from "../utils";
 
 const getAllUsers = async () => {
   const userRepository = AppDataSource.getRepository(User);
@@ -20,7 +21,19 @@ const getUserInfo = async (id: number) => {
         id: id,
       },
     });
-    //TODO: improve user response with only (name, books borrowed in the past with their user scores, and currently borrowed books information
+
+    if (user) {
+      const pastBorrowingsArray = await utils.findUserPastBorrowings(id);
+      const currentlyBorrowedArray = await utils.findUserCurrentBorrowings(id);
+
+      const userObject = {
+        name: user.name,
+        pastBorrowings: pastBorrowingsArray,
+        currentlyBorrowed: currentlyBorrowedArray,
+      };
+      return userObject;
+    }
+
     return user;
   } catch (err) {
     console.error("Error fetching user by ID:", err);
