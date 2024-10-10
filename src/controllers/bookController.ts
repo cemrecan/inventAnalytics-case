@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { bookService } from "../services/bookService";
+import { createBookBodyValidator } from "../validation/validators";
 
 const getAllBooks = async (req: Request, res: Response) => {
   try {
@@ -28,6 +29,15 @@ const getBookInfo = async (req: Request, res: Response) => {
 
 const createBook = async (req: Request, res: Response) => {
   try {
+    const { error } = createBookBodyValidator.validate(req.body);
+
+    if (error) {
+      res.status(400).json({
+        error: "Book creation has been failed. The request has wrong format.",
+      });
+      return;
+    }
+
     const bookName = req.body.name;
     const book = bookService.createBook(bookName);
     res.json(book);

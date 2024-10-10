@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { userService } from "../services/userService";
+import { createUserBodyValidator } from "../validation/validators";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -28,6 +29,15 @@ const getUserInfo = async (req: Request, res: Response) => {
 
 const createUser = async (req: Request, res: Response) => {
   try {
+    const { error } = createUserBodyValidator.validate(req.body);
+
+    if (error) {
+      res.status(400).json({
+        error: "User creation has been failed. The request has wrong format.",
+      });
+      return;
+    }
+
     const userName = req.body.name;
     const user = userService.createUser(userName);
     res.json(user);

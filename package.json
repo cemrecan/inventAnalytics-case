@@ -18,6 +18,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "joi": "^17.13.3",
     "pg": "^8.13.0",
     "typeorm": "^0.3.20"
   }

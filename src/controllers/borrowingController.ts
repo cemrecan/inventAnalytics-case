@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { borrowingService } from "../services/borrowingService";
+import { scoreBodyValidator } from "../validation/validators";
 
 const borrowBook = async (req: Request, res: Response) => {
   try {
@@ -19,6 +20,15 @@ const borrowBook = async (req: Request, res: Response) => {
 
 const returnBook = async (req: Request, res: Response) => {
   try {
+    const { error } = scoreBodyValidator.validate(req.body);
+
+    if (error) {
+      res.status(400).json({
+        error: "Returning book has been failed. The request has wrong format.",
+      });
+      return;
+    }
+
     const user_id = req.params.user_id;
     const book_id = req.params.book_id;
     const user_score = req.body.score;
